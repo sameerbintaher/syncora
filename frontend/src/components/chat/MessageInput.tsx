@@ -106,7 +106,7 @@ export default function MessageInput({ roomId, room, currentUserId, replyTo, onC
   };
 
   return (
-    <div className="px-3 pb-safe pb-3 pt-2 md:px-4 bg-surface-950 border-t border-slate-800/60 flex-shrink-0">
+    <div className="px-3 pb-safe pb-3 pt-2 md:px-4 bg-slate-950/95 backdrop-blur-sm border-t border-slate-800/50 flex-shrink-0 shadow-[0_-4px_24px_-4px_rgba(0,0,0,0.2)]">
       <AnimatePresence>
         {replyTo && (
           <motion.div

@@ -2,19 +2,19 @@
 
 import { useState, FormEvent } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/hooks/useAuth';
 
 const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.08 },
+    transition: { staggerChildren: 0.06, delayChildren: 0.1 },
   },
 };
 
 const item = {
-  hidden: { opacity: 0, y: 12 },
+  hidden: { opacity: 0, y: 16 },
   show: { opacity: 1, y: 0 },
 };
 
@@ -45,96 +45,118 @@ export default function LoginPage() {
 
   return (
     <>
-      <motion.h2
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-xl font-semibold text-white mb-6"
-      >
-        Sign in
+      <motion.h2 initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-2xl font-bold text-white mb-2">
+        Welcome back
       </motion.h2>
-
-      <motion.form
-        variants={container}
-        initial="hidden"
-        animate="show"
-        onSubmit={handleSubmit}
-        className="space-y-5"
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.1 }}
+        className="text-slate-500 text-sm mb-6"
       >
-        <motion.div variants={item}>
-          <label className="block text-sm font-medium text-slate-300 mb-2">Email</label>
+        Sign in to continue to Syncora
+      </motion.p>
+
+      <motion.form variants={container} initial="hidden" animate="show" onSubmit={handleSubmit} className="space-y-5">
+        <motion.div variants={item} className="group">
+          <label className="block text-sm font-medium text-slate-400 mb-2 group-focus-within:text-primary-400 transition-colors">
+            Email
+          </label>
           <input
             type="email"
-            className="input-field"
+            className="w-full bg-slate-800/50 border border-slate-700/60 rounded-xl px-4 py-3.5 text-slate-100 placeholder-slate-500
+              transition-all duration-300 focus:outline-none focus:border-primary-500/60 focus:ring-2 focus:ring-primary-500/20
+              hover:border-slate-600 hover:bg-slate-800/70"
             placeholder="you@example.com"
             value={form.email}
             onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
             autoComplete="email"
           />
-          {errors.email && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-red-400 text-xs mt-1.5"
-            >
-              {errors.email}
-            </motion.p>
-          )}
+          <AnimatePresence>
+            {errors.email && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="text-red-400 text-xs mt-1.5"
+              >
+                {errors.email}
+              </motion.p>
+            )}
+          </AnimatePresence>
         </motion.div>
 
-        <motion.div variants={item}>
-          <label className="block text-sm font-medium text-slate-300 mb-2">Password</label>
+        <motion.div variants={item} className="group">
+          <label className="block text-sm font-medium text-slate-400 mb-2 group-focus-within:text-primary-400 transition-colors">
+            Password
+          </label>
           <input
             type="password"
-            className="input-field"
+            className="w-full bg-slate-800/50 border border-slate-700/60 rounded-xl px-4 py-3.5 text-slate-100 placeholder-slate-500
+              transition-all duration-300 focus:outline-none focus:border-primary-500/60 focus:ring-2 focus:ring-primary-500/20
+              hover:border-slate-600 hover:bg-slate-800/70"
             placeholder="••••••••"
             value={form.password}
             onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
             autoComplete="current-password"
           />
-          {errors.password && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-red-400 text-xs mt-1.5"
-            >
-              {errors.password}
-            </motion.p>
-          )}
+          <AnimatePresence>
+            {errors.password && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="text-red-400 text-xs mt-1.5"
+              >
+                {errors.password}
+              </motion.p>
+            )}
+          </AnimatePresence>
         </motion.div>
 
         <motion.div variants={item}>
-          <button
+          <motion.button
             type="submit"
             disabled={isLoading}
-            className="btn-primary w-full mt-6"
+            className="w-full py-3.5 rounded-xl font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-500
+              hover:from-primary-500 hover:to-primary-400
+              transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed
+              shadow-lg shadow-primary-600/25 hover:shadow-primary-500/30"
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.99 }}
           >
             {isLoading ? (
               <span className="flex items-center justify-center gap-2">
-                <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <motion.span
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                  className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
+                />
                 Signing in...
               </span>
             ) : (
               'Sign In'
             )}
-          </button>
+          </motion.button>
         </motion.div>
       </motion.form>
 
-      <motion.p
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.4 }}
-        className="text-center text-slate-400 text-sm mt-6"
+        transition={{ delay: 0.5 }}
+        className="mt-8 pt-6 border-t border-slate-800"
       >
-        Don&apos;t have an account?{' '}
-        <Link
-          href="/auth/register"
-          className="text-primary-400 hover:text-primary-300 font-medium transition-colors inline-flex items-center gap-1 group"
-        >
-          Create one
-          <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-        </Link>
-      </motion.p>
+        <p className="text-center text-slate-500 text-sm">
+          Don&apos;t have an account?{' '}
+          <Link href="/auth/register" className="group inline-flex items-center gap-1.5">
+            <span className="text-primary-400 font-medium group-hover:text-primary-300 transition-colors">Create one</span>
+            <motion.span className="text-primary-400" animate={{ x: [0, 4, 0] }} transition={{ duration: 2, repeat: Infinity }}>
+              →
+            </motion.span>
+          </Link>
+        </p>
+      </motion.div>
     </>
   );
 }

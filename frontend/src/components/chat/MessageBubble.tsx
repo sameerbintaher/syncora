@@ -168,7 +168,7 @@ export default function MessageBubble({ message, isOwn, showAvatar, isLast, curr
             whileHover={{ scale: 1.01 }}
             className={clsx(
               'px-3.5 py-2 rounded-2xl text-sm leading-relaxed break-words transition-shadow',
-              isOwn ? 'bg-primary-600 text-white rounded-br-md' : 'bg-slate-800/70 text-slate-100 rounded-bl-md',
+              isOwn ? 'bg-primary-600 text-white rounded-br-md shadow-lg shadow-primary-600/20' : 'bg-slate-800/80 text-slate-100 rounded-bl-md shadow-md',
               isDeleted && 'opacity-50 italic',
               isLast && isOwn && 'rounded-br-2xl',
               isLast && !isOwn && 'rounded-bl-2xl'

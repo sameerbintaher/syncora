@@ -71,9 +71,9 @@ export default function Sidebar() {
 
       <motion.aside
         className={clsx(
-          'flex flex-col h-full flex-shrink-0 bg-surface-900/95 border-r border-slate-800/60',
+          'flex flex-col h-full flex-shrink-0 bg-slate-900/80 backdrop-blur-xl border-r border-slate-800/50 shadow-2xl',
           'md:relative md:translate-x-0 md:w-72 md:min-w-[260px]',
-          'fixed inset-y-0 left-0 z-50 w-[min(320px,85vw)] backdrop-blur-sm'
+          'fixed inset-y-0 left-0 z-50 w-[min(320px,85vw)]'
         )}
         initial={false}
         animate={{ x: isDesktop ? 0 : isOpen ? 0 : '-100%' }}

@@ -148,7 +148,11 @@ export default function RoomPage() {
   }
 
   return (
-    <div className="flex-1 flex flex-col h-full overflow-hidden relative bg-surface-950">
+    <div className="flex-1 flex flex-col h-full overflow-hidden relative">
+      {/* Premium ambient - very subtle radial accent */}
+      <div
+        className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,rgba(251,191,36,0.02),transparent_50%)]"
+      />
       {room && <ChatHeader room={room} currentUserId={currentUserId} />}
 
       <div

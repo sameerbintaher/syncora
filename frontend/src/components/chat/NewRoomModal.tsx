@@ -60,7 +60,7 @@ export default function NewRoomModal({ onClose }: Props) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm p-0 sm:p-4"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-md p-0 sm:p-4"
     >
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.98 }}
@@ -68,7 +68,7 @@ export default function NewRoomModal({ onClose }: Props) {
         exit={{ opacity: 0, y: 16, scale: 0.98 }}
         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full sm:max-w-md max-h-[85vh] flex flex-col glass rounded-t-xl sm:rounded-2xl shadow-xl overflow-hidden"
+        className="w-full sm:max-w-md max-h-[85vh] flex flex-col bg-slate-900/90 backdrop-blur-2xl border border-slate-700/50 rounded-t-xl sm:rounded-2xl shadow-2xl overflow-hidden"
       >
         <div className="flex items-center justify-between px-4 py-3 border-b border-white/5">
           <h3 className="font-semibold text-white">New conversation</h3>
