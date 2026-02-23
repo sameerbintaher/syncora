@@ -52,16 +52,16 @@ syncora/
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|------------|
-| Frontend | Next.js 14 (App Router), TypeScript, Tailwind CSS |
-| State | Zustand |
-| HTTP | Axios with token refresh interceptor |
-| Backend | Node.js, Express.js |
-| Real-time | Socket.io |
-| Database | MongoDB 7, Mongoose |
-| Auth | JWT (access + refresh), bcrypt |
-| Security | Helmet, CORS, rate limiting, express-validator, sanitization |
+| Layer     | Technology                                                   |
+| --------- | ------------------------------------------------------------ |
+| Frontend  | Next.js 14 (App Router), TypeScript, Tailwind CSS            |
+| State     | Zustand                                                      |
+| HTTP      | Axios with token refresh interceptor                         |
+| Backend   | Node.js, Express.js                                          |
+| Real-time | Socket.io                                                    |
+| Database  | MongoDB 7, Mongoose                                          |
+| Auth      | JWT (access + refresh), bcrypt                               |
+| Security  | Helmet, CORS, rate limiting, express-validator, sanitization |
 
 ---
 
@@ -105,26 +105,26 @@ npm run dev
 
 ## Environment Variables
 
-| Variable | Required | Default | Description |
-|---------|----------|---------|-------------|
-| `JWT_ACCESS_SECRET` | Yes | — | Min 32 chars for access token |
-| `JWT_REFRESH_SECRET` | Yes | — | Min 32 chars for refresh token |
-| `MONGODB_URI` | Yes | — | MongoDB connection string |
-| `CLIENT_URL` | No | http://localhost:3000 | Allowed CORS origin(s), comma-separated |
-| `NEXT_PUBLIC_API_URL` | No | http://localhost:5001 | API URL (browser) |
-| `NEXT_PUBLIC_SOCKET_URL` | No | http://localhost:5001 | Socket URL (browser) |
-| `BCRYPT_ROUNDS` | No | 12 | bcrypt cost factor |
-| `PORT` | No | 5000 | Backend port |
+| Variable                 | Required | Default               | Description                             |
+| ------------------------ | -------- | --------------------- | --------------------------------------- |
+| `JWT_ACCESS_SECRET`      | Yes      | —                     | Min 32 chars for access token           |
+| `JWT_REFRESH_SECRET`     | Yes      | —                     | Min 32 chars for refresh token          |
+| `MONGODB_URI`            | Yes      | —                     | MongoDB connection string               |
+| `CLIENT_URL`             | No       | http://localhost:3000 | Allowed CORS origin(s), comma-separated |
+| `NEXT_PUBLIC_API_URL`    | No       | http://localhost:5001 | API URL (browser)                       |
+| `NEXT_PUBLIC_SOCKET_URL` | No       | http://localhost:5001 | Socket URL (browser)                    |
+| `BCRYPT_ROUNDS`          | No       | 12                    | bcrypt cost factor                      |
+| `PORT`                   | No       | 5000                  | Backend port                            |
 
 ---
 
 ## Docker Setup
 
-| Service | Image/Build | Purpose |
-|---------|-------------|---------|
-| **mongodb** | mongo:7.0 | Database; health-checked before backend |
-| **backend** | ./backend/Dockerfile | Express + Socket.io; runs as non-root with entrypoint |
-| **frontend** | ./frontend/Dockerfile | Next.js standalone; build args for API URL |
+| Service      | Image/Build           | Purpose                                               |
+| ------------ | --------------------- | ----------------------------------------------------- |
+| **mongodb**  | mongo:7.0             | Database; health-checked before backend               |
+| **backend**  | ./backend/Dockerfile  | Express + Socket.io; runs as non-root with entrypoint |
+| **frontend** | ./frontend/Dockerfile | Next.js standalone; build args for API URL            |
 
 **Networking:** All services use `syncora-network`. Backend and frontend resolve `mongodb` and `backend` by hostname. The browser must reach the backend via the host (e.g. `localhost:5001`), so `NEXT_PUBLIC_*` use host URLs.
 
@@ -141,14 +141,14 @@ All API errors return a consistent shape:
 }
 ```
 
-| HTTP | Typical cause |
-|------|----------------|
-| 400 | Validation error, bad request |
-| 401 | Invalid/expired token |
-| 403 | Access denied |
-| 404 | Resource not found |
-| 409 | Conflict (e.g. duplicate email) |
-| 500 | Internal server error |
+| HTTP | Typical cause                   |
+| ---- | ------------------------------- |
+| 400  | Validation error, bad request   |
+| 401  | Invalid/expired token           |
+| 403  | Access denied                   |
+| 404  | Resource not found              |
+| 409  | Conflict (e.g. duplicate email) |
+| 500  | Internal server error           |
 
 ---
 
@@ -168,13 +168,17 @@ npm run test:watch # Watch mode
 
 ## Scaling Explanation
 
-| Concern | Current approach | Scale-out options |
-|---------|-----------------|-------------------|
-| **API** | Single Node process | Horizontal: multiple instances behind load balancer; stateless |
-| **Socket** | Single Socket.io server | Sticky sessions or Redis adapter for multi-instance |
-| **DB** | Single MongoDB | Replica set; sharding for very large datasets |
-| **Uploads** | Local volume | S3/MinIO; CDN for avatars |
-| **Rate limit** | In-memory | Redis store for distributed limiting |
+| Concern        | Current approach        | Scale-out options                                              |
+| -------------- | ----------------------- | -------------------------------------------------------------- |
+| **API**        | Single Node process     | Horizontal: multiple instances behind load balancer; stateless |
+| **Socket**     | Single Socket.io server | Sticky sessions or Redis adapter for multi-instance            |
+| **DB**         | Single MongoDB          | Replica set; sharding for very large datasets                  |
+| **Uploads**    | Local volume            | S3/MinIO; CDN for avatars                                      |
+| **Rate limit** | In-memory               | Redis store for distributed limiting                           |
+
+## Results
+
+![Syncora Screenshot](frontend/public/syncora.png)
 
 ---
 
